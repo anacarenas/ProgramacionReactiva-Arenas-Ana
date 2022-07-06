@@ -1,0 +1,85 @@
+<div class="grid grid-cols-2 ">
+    <div class=" flex justify-center">
+    <div class="w-3/4">
+        <h1 class="text-blue-800 font-bold text-3xl">{{ accion }} Alumno</h1>
+    <mat-card class="mat-elevation-z8 p-5 ">
+        
+        <form [formGroup]="myForm" autocomplete="off">
+            <div class="w-full">
+                <mat-form-field class="w-full text-base" >
+                    <mat-label>Nombres</mat-label>
+                    <input matInput formControlName="nombres">
+                  </mat-form-field>
+                  <div *ngIf="nombreInvalido" style="margin-top: -20px;">
+                      <span class="text-red-600">Este campo es <strong>requerido</strong></span>
+                  </div>
+                  <div *ngIf="myForm.get('nombres')?.hasError('maxlength') && myForm.get('nombres')?.touched" style="margin-top: -20px;">
+                    <span class="text-red-600">El campo debe tener como maximo <strong> 20 caracteres</strong></span>
+                </div>
+            </div>
+
+            <div class="w-full">
+                <mat-form-field class="w-full text-base" >
+                    <mat-label>Apellidos</mat-label>
+                    <input matInput formControlName="apellidos">
+                  </mat-form-field>
+                  <div *ngIf="apellidoInvalido" style="margin-top: -20px;">
+                      <span class="text-red-600">Este campo es <strong>requerido</strong></span>
+                  </div>
+                  <div *ngIf="myForm.get('apellidos')?.hasError('maxlength') && myForm.get('apellidos')?.touched" style="margin-top: -20px;">
+                    <span class="text-red-600">El campo debe tener como maximo <strong> 20 caracteres</strong></span>
+                </div>
+            </div>
+            <div class="w-full">
+                <mat-form-field class="w-full text-base">
+                    <mat-label>Correo</mat-label>
+                    <input matInput formControlName="correo">
+                  </mat-form-field>
+                  <div *ngIf="myForm.get('correo')?.hasError('required') && myForm.get('correo')?.touched" style="margin-top: -20px;">
+                    <span class="text-red-600">Este campo es <strong>requerido</strong></span>
+                </div>
+                <div *ngIf="myForm.get('correo')?.hasError('pattern') && myForm.get('correo')?.touched" style="margin-top: -20px;">
+                    <span class="text-red-600">Formato de correo requerido</span>
+                </div>
+            </div>
+            <br>
+            <div class="w-full">
+                <mat-form-field class="w-full">
+                    <mat-label>Telefono</mat-label>
+                    <input matInput formControlName="telefono">
+                </mat-form-field>
+                <div *ngIf="myForm.get('telefono')?.hasError('required') && myForm.get('telefono')?.touched" style="margin-top: -20px;">
+                    <span class="text-red-600">Este campo es <strong>requerido</strong></span>
+                </div>
+                <div *ngIf="myForm.get('telefono')?.hasError('pattern') && myForm.get('telefono')?.touched" style="margin-top: -20px;">
+                    <span class="text-red-600">Solo se permiten <strong>numeros</strong></span>
+                </div>
+            </div>
+            <div class="w-full">
+                <mat-form-field class="w-full">
+                    <mat-label>estado</mat-label>
+                    <mat-select formControlName="estado">
+                      <mat-option *ngFor="let estado of estados" [value]="estado">
+                        {{ estado }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div *ngIf="myForm.get('estado')?.hasError('required') && myForm.get('estado')?.touched" style="margin-top: -20px;">
+                    <span class="text-red-600">Este campo es <strong>requerido</strong></span>
+                </div>
+            </div>
+            <br>
+            <div class="w-full flex flex-row-reverse">
+                <button mat-raised-button class="  bg-blue-500" [disabled]="!myForm.valid"
+                type="button" style="margin-left: 10px;" (click)="guardarAlumno()">Aceptar</button>
+                <button mat-raised-button class="bg-red-400 " routerLink="/"
+                        type="button">Cancelar</button>
+            </div>
+        </form>
+    </mat-card>
+    </div>
+    </div>
+    <div class=" flex justify-center">
+        <img  src="../../../assets/estudiante.png" alt="" >
+    </div>
+</div>

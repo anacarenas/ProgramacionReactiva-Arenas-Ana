@@ -1,0 +1,57 @@
+<div class=" flex flex-col"> 
+    <h1 class="text-blue-800 font-bold text-3xl w-1/2 place-self-center"> Listado de Alumnos</h1>
+    <mat-card class="mat-elevation-z8 w-1/2 place-self-center">
+        <div class="w-full text-right" >
+            <button mat-raised-button color="warn" routerLink="/add">AGREGAR</button>
+        </div>
+        
+        <mat-form-field>
+            <mat-label>Filtro</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Filtro" autocomplete="off">
+        </mat-form-field>
+
+        <table mat-table [dataSource]="(tableDataSource$ | async)!" class="w-full" matSort >
+            <ng-container matColumnDef="nombres">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+            </ng-container>
+            <ng-container matColumnDef="apellidos">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </th>
+                <td mat-cell *matCellDef="let element"> {{element.apellidos}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="correo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+                <td mat-cell *matCellDef="let element"> {{element.correo}} </td>
+            </ng-container>
+            
+        
+            <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+                <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="telefono">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefono </th>
+                <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+            </ng-container>
+        
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                <td mat-cell *matCellDef="let element; let i = index"> 
+                <a class="pointer" routerLink="edit/{{ i }}" style="color: #1878B0;">
+                    <mat-icon >edit</mat-icon>
+                </a>
+                <a (click)=eliminarAlumno(i)  class="pointer" style="color: #E15639;">
+                    <mat-icon>delete</mat-icon>
+                </a>
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-card>
+    
+    
